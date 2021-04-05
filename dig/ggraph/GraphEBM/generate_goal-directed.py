@@ -26,6 +26,7 @@ from utils import metric_random_generation, check_chemical_validity, qed, calcul
 
 
 ### Args
+"""
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_name', type=str, default='qm9', choices=['qm9', 'zinc250k'], help='dataset name')
 parser.add_argument('--data_dir', type=str, default='./preprocess_data', help='Location for the dataset')
@@ -47,6 +48,56 @@ parser.add_argument('--save_smiles', type=strtobool, default='true', help='Save 
 parser.add_argument('--save_fig', type=str, default=None, help='Save the drawn figs of generated melucules? If yes, give a directory.')
 
 args = parser.parse_args()
+
+def Setter_Arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--data_name', type=str, default='qm9', choices=['qm9', 'zinc250k'], help='dataset name')
+    parser.add_argument('--data_dir', type=str, default='./preprocess_data', help='Location for the dataset')
+    parser.add_argument('--property_name', type=str, default='qed', choices=['qed', 'plogp'], help='Property name')
+    parser.add_argument('--depth', type=int, default=2, help='Number of graph conv layers')
+    parser.add_argument('--add_self', type=strtobool, default='false', help='Add shortcut in graphconv')
+    parser.add_argument('--hidden', type=int, default=64, help='hidden dimension')
+    parser.add_argument('--swish', type=strtobool, default='true', help='Use swish as activation function')
+    parser.add_argument('--c', type=float, default=0.5, help='Dequantization using uniform distribution of [0,c)')
+    parser.add_argument('--batch_size', type=int, default=10000, help='Batch size during training')
+    parser.add_argument('--model_dir', type=str, default='./trained_models/qm9/epoch_1.pt', help='Location for loading checkpoints')
+    parser.add_argument('--runs', type=int, default=5, help='# of runs')
+    parser.add_argument('--step_size', type=int, default=10, help='Step size in Langevin dynamics')
+    parser.add_argument('--sample_step', type=int, default=30, help='Number of sample step in Langevin dynamics')
+    parser.add_argument('--noise', type=float, default=0.005, help='The standard variance of the added noise during Langevin Dynamics')
+    parser.add_argument('--clamp', type=strtobool, default='true', help='Clamp the data/gradient during Langevin Dynamics')
+    parser.add_argument('--save_result_file', type=str, default=None, help='Save evaluation result')
+    parser.add_argument('--save_smiles', type=strtobool, default='true', help='Save the SMILES strings of generated melucules')
+    parser.add_argument('--save_fig', type=str, default=None, help='Save the drawn figs of generated melucules? If yes, give a directory.')
+    return parser.parse_args()"""
+
+class Setter_Arguments:
+    def __init__(self,database='qm9',data_directory = './preprocess_data', property = "qed",depth_value = 2,
+                add_self_value = "false",hidden_dim_value = 64,swish_val ="true" ,c_value = 0.5, batch_size_value = 10000,
+                step_size_value= 10, sample_step_value = 30, evaluation_result_save = None,
+                model_dir_value = "./release_models/model_qm9_uncond.pt", number_of_runs = 1, noise_value = 0.005,
+                clamp_gradient="true",saving_smiles = "true", figure_directory= None ):
+        self.data_name = database
+        self.data_dir = data_directory
+        self.property_name = property
+        self.depth = depth_value
+        self.add_self = add_self_value  
+        self.hidden = hidden_dim_value
+        self.swish  = swish_val 
+        self.c = c_value
+        self.batch_size = batch_size_value
+        self.model_dir = model_dir_value
+        self.runs = number_of_runs
+        self.step_size = step_size_value
+        self.sample_step = sample_step_value
+        self.noise = noise_value
+        self.clamp = clamp_gradient
+        self.save_result_file = evaluation_result_save
+        self.save_smiles = saving_smiles
+        self.save_fig = figure_directory
+
+
+args = Setter_Arguments()
 
 def tab_printer(args):
     args = vars(args)
