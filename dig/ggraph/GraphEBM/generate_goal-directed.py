@@ -26,7 +26,7 @@ from utils import metric_random_generation, check_chemical_validity, qed, calcul
 
 
 ### Args
-"""
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_name', type=str, default='qm9', choices=['qm9', 'zinc250k'], help='dataset name')
 parser.add_argument('--data_dir', type=str, default='./preprocess_data', help='Location for the dataset')
@@ -48,7 +48,7 @@ parser.add_argument('--save_smiles', type=strtobool, default='true', help='Save 
 parser.add_argument('--save_fig', type=str, default=None, help='Save the drawn figs of generated melucules? If yes, give a directory.')
 
 args = parser.parse_args()
-
+"""
 def Setter_Arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_name', type=str, default='qm9', choices=['qm9', 'zinc250k'], help='dataset name')
@@ -70,7 +70,7 @@ def Setter_Arguments():
     parser.add_argument('--save_smiles', type=strtobool, default='true', help='Save the SMILES strings of generated melucules')
     parser.add_argument('--save_fig', type=str, default=None, help='Save the drawn figs of generated melucules? If yes, give a directory.')
     return parser.parse_args()"""
-
+"""
 class Setter_Arguments:
     def __init__(self,database='qm9',data_directory = './preprocess_data', property = "qed",depth_value = 2,
                 add_self_value = "false",hidden_dim_value = 64,swish_val ="true" ,c_value = 0.5, batch_size_value = 10000,
@@ -97,7 +97,7 @@ class Setter_Arguments:
         self.save_fig = figure_directory
 
 
-args = Setter_Arguments()
+args = Setter_Arguments()"""
 
 def tab_printer(args):
     args = vars(args)
